@@ -1,0 +1,217 @@
+package com.company;
+
+import java.util.*;
+import java.io.File;
+
+public class Main {
+
+    /* selectionSort
+
+    This method sorts an array by the selection sort process. Nested for loop is used to compare the numbers in an array.
+    The element in array is selected from an index 0 (value of i). With every inner loop, an element to right is taken
+    for comparison. If it is smaller that the element at 0th index,it is swapped. This results to the smallest element
+    in the first position (i position) for the outer loop. This process continues with the outer for loop and the
+    smallest numbers are arranged to the left. In this way, numbers in an array is sorted in ascending order.
+
+    Pre: An array of type double is taken in as parameter.
+
+    Post: Given array is sorted in an ascending order using selection sort.
+     */
+
+
+    public static void selectionSort(double[] myList) {
+        for (int i = 0; i < myList.length; i++) {
+            for (int j = i + 1; j < myList.length; j++) {
+                if (myList[j] < myList[i]) {
+                    double temp = myList[i];
+                    myList[i] = myList[j];
+                    myList[j] = temp;
+                }
+            }
+        }
+    }
+
+    /* bubbleSort
+
+    This method sorts an array by the bubble sort process. Nested for loop is used to compare the numbers in an array.
+    The element in array is selected from an index 0. It is compared with its adjacent element. If the adjacent element
+    is greater, they are swapped. This results to the largest element in the last index. For every outer loop, the
+    largest elements are arranged from right . In this way, numbers in an array is sorted in ascending order.
+
+    Pre: An array of type double is taken in as parameter.
+
+    Post: Given array is sorted in ascending order with bubble sort.
+     */
+    public static void bubbleSort(double[] myList) {
+        for (int i = 0; i < myList.length; i++) {
+            for (int j = 0; j < myList.length - 1; j++) {
+                if (myList[j + 1] < myList[j]) {
+                    double temp = myList[j];
+                    myList[j] = myList[j + 1];
+                    myList[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+
+     /* insertionSort
+
+    This method sorts an array by the insertion sort process. Nested loops is used to compare the numbers in an array.
+    It starts from an element at index 1 and checks if it is smaller than the elements left to it. It checks elements
+    left to it from right direction. If the element is smaller, the larger element is pushed an index right. If index
+    equals zero or the element is larger, it is then placed in its position. In this way, all the elements are inserted
+     in their respective position and the array is sorted.
+
+    Pre: An array of type double is taken in as parameter.
+
+    Post: Given array is sorted in an ascending order with insertion sort.
+     */
+
+    public static void insertionSort(double[] myList) {
+        for (int i = 1; i < myList.length; i++) {
+            double temp = myList[i];
+            int j = i - 1;
+            while (j >= 0 && temp < myList[j]) {
+                myList[j + 1] = myList[j];
+                j--;
+
+            }
+            myList[j + 1] = temp;
+
+        }
+    }
+
+
+    /* insertionSort
+
+    This method sorts an arraylist by the insertion sort process. If the size of the arraylist is smaller than 1, the
+    value passed as parameter is added to it. If the size is greater than 1, it compares the passed value with the
+    existing elements from right.The comparison is performed with compareTo method. If the element is smaller,
+    the larger element is pushed an index right. If index equals zero or the element is larger, it is then placed in
+    its position. In this way, all the elements are inserted in their respective position and the arraylist is sorted.
+
+    Pre: An arraylist of type String, a string value and an integer is taken as parameter.
+
+    Post: Given arraylist is sorted in an ascending order via insertion sort.
+     */
+
+
+    public static void insertionSort(ArrayList<String> sortedList, String value, int index) {
+        if (sortedList.size() < 1) {
+            sortedList.add(value);
+        } else {
+            int j = sortedList.size() - 1;
+            while (j >= 0 && (value.compareToIgnoreCase(sortedList.get(j)) < 0)) {
+                sortedList.add(j + 1, sortedList.get(j));
+                sortedList.remove(j);
+                j--;
+            }
+            sortedList.add(j + 1, value);
+        }
+    }
+
+
+    /* mergeSort
+
+    This method sorts an array by the merge sort process. It uses the recursive process for execution. The given array is
+    divided into two halves until the sub array is of length 1. The original array and sub arrays are passed into a
+    helper function called merge which sorts the sub arrays and  merges them.
+
+    Pre: An array of type double is taken in as parameter.
+
+    Post: Given array is sorted in ascending order via merge sort.
+     */
+    public static void mergeSort(double[] myList) {
+
+        if (myList.length > 1) {
+
+            double[] firstHalf = new double[myList.length / 2];
+            System.arraycopy(myList, 0, firstHalf, 0, myList.length / 2);
+
+            int secondHalfLength = myList.length - myList.length / 2;
+            double[] secondHalf = new double[secondHalfLength];
+            System.arraycopy(myList, myList.length / 2, secondHalf, 0, secondHalfLength);
+            mergeSort(firstHalf);
+            mergeSort(secondHalf);
+
+            merge(firstHalf, secondHalf, myList);
+        }
+    }
+
+    public static void merge(double[] firstHalf, double[] secondHalf, double[] myList) {
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while (i < firstHalf.length && j < secondHalf.length) {
+            if (firstHalf[i] <= secondHalf[j]) {
+                myList[k++] = firstHalf[i++];
+            } else {
+                myList[k++] = secondHalf[j++];
+            }
+        }
+        while (i < firstHalf.length) {
+            myList[k++] = firstHalf[i++];
+        }
+        while (j < secondHalf.length) {
+            myList[k++] = secondHalf[j++];
+        }
+    }
+
+
+     /* mergeSort
+
+    This method sorts an arraylist by the merge sort process. It uses the recursive process for execution. The given
+    arraylist is divided into two halves until the sub array is of length 1. The original arraylist and sub arraylists
+    are passed into a helper function called merge which sorts the sub arraylists and merges them.
+
+    Pre: An arraylist of type String is taken in as parameter.
+
+    Post: Given array is sorted in ascending order via merge sort.
+     */
+
+    public static void mergeSort(ArrayList<String> myList) {
+
+        if (myList.size() > 1) {
+
+            ArrayList<String> firstHalf = new ArrayList<>(myList.size() / 2);
+            int firstHalfLength = myList.size() / 2;
+            for (int i = 0; i < firstHalfLength; i++) {
+                firstHalf.add(myList.get(i));
+            }
+
+            int secondHalfLength = myList.size() - myList.size() / 2;
+            ArrayList<String> secondHalf = new ArrayList<>(secondHalfLength);
+            for (int i = firstHalfLength; i < myList.size(); i++) {
+                secondHalf.add(myList.get(i));
+            }
+            mergeSort(firstHalf);
+            mergeSort(secondHalf);
+            merge(firstHalf, secondHalf, myList);
+        }
+    }
+
+    public static void merge(ArrayList<String> firstHalf, ArrayList<String> secondHalf, ArrayList<String> myList) {
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while (i < firstHalf.size() && j < secondHalf.size()) {
+            if (firstHalf.get(i).compareToIgnoreCase(secondHalf.get(j)) < 0) {
+                myList.add(k++, firstHalf.get(i++));
+
+
+            } else {
+                myList.add(k++, secondHalf.get(j++));
+            }
+            myList.remove(k);
+        }
+        while (i < firstHalf.size()) {
+            myList.add(k++, firstHalf.get(i++));
+            myList.remove(k);
+        }
+
+        while (j < secondHalf.size()) {
+            myList.add(k++, secondHalf.get(j++));
+            myList.remove(k);
+        }
+    }
