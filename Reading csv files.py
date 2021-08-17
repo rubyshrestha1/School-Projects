@@ -1,7 +1,8 @@
-
+## To get the header from the file
 def parse_header(header_line):
     return header_line.strip().split(",")
 
+## to get the values as float
 def parse_values(line):
     val=[]
     temp=line.strip().split(",")
@@ -12,13 +13,14 @@ def parse_values(line):
             val.append(0.0)
     return val
 
+## Storing the column header and values as key-value pair
 def create_dict(header, values):
     result={}
     for header, value in zip(header, values):
         result[header]= value
     return result
         
-
+## main method to read from file
 def read_csv(path):
     result=[]
     with open(path, 'r') as file:
